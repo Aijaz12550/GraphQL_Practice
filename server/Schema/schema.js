@@ -10,6 +10,7 @@ const {
 
 const Book = [
     { name: 'first', id: "1",authorId:"2" },
+    { name: 'React Native', id: "1",authorId:"2" },
     { name: 'second', id: "2",authorId:"1" },
     { name: 'third', id: "3",authorId:"3" },
 ]
@@ -54,6 +55,11 @@ const AuthorType = new GraphQLObjectType({
 
 
 
+// --
+
+
+
+
 
 // ----------------------query 
 
@@ -82,7 +88,24 @@ const RootQuery = new GraphQLObjectType({
             resolve(parent,args){
                 return _.find(Author, {id:args.id})
             }
-        } 
+        } ,
+
+    
+        books: {
+            type: new GraphQLList(BookType),
+            resolve(parent, args){
+                return Book;
+            }
+        },
+
+        authors :{
+            type: new GraphQLList(AuthorType),
+            resolve(){
+                return Author
+            }
+        },
+
+
     }
 })
 
